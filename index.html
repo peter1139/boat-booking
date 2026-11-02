@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบจองเรือลอยอังคาร - หน่วยซีล สัตหีบ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Kanit', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">⚓</span>
+        <div>
+          <h1 class="font-bold text-base md:text-lg leading-tight">เรือลอยอังคาร หน่วยซีล สัตหีบ</h1>
+          <p class="text-xs text-sky-400">ระบบจองคิว & แดชบอร์ดจัดการเรือ</p>
+        </div>
+      </div>
+      <div class="flex space-x-1 bg-slate-800 p-1 rounded-xl">
+        <button id="tabBtnBooking" onclick="switchTab('booking')" class="px-4 py-1.5 rounded-lg text-sm font-medium transition bg-sky-600 text-white">
+          📝 ฟอร์มจอง
+        </button>
+        <button id="tabBtnDashboard" onclick="switchTab('dashboard')" class="px-4 py-1.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white">
+          📊 แดชบอร์ด
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto p-4 md:p-8">
+
+    <!-- 1. แท็บฟอร์มจองเรือ -->
+    <section id="sectionBooking" class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+      <div class="bg-gradient-to-r from-sky-700 to-blue-900 p-6 text-white text-center">
+        <h2 class="text-xl font-bold">รับประกอบพิธีลอยอังคารอัฐิ / เถ้ากระดูก</h2>
+        <p class="text-sky-200 text-sm mt-1">ออกเรือเที่ยวละ 30 นาที (08:00 - 16:00 น.)</p>
+      </div>
+
+      <form id="bookingForm" onsubmit="handleBooking(event)" class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">📅 เลือกวันที่จัดพิธี *</label>
+          <input type="date" id="bookDate" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none" onchange="fetchAvailableSlots()">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">🕒 เลือกรอบเวลาเรือ *</label>
+          <select id="bookSlot" required disabled class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-slate-50 focus:ring-2 focus:ring-sky-500 outline-none">
+            <option value="">-- กรุณาเลือกวันที่ก่อน --</option>
+          </select>
+          <span id="slotStatusText" class="text-xs text-sky-600 mt-1 hidden">⏳ กำลังตรวจสอบรอบเรือว่าง...</span>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">👤 ชื่อเจ้าภาพ / ผู้ประสานงาน *</label>
+          <input type="text" id="bookName" required placeholder="ชื่อ-นามสกุล" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">📞 เบอร์โทรศัพท์ *</label>
+          <input type="tel" id="bookPhone" required placeholder="08xxxxxxxx" maxlength="10" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">👥 จำนวนผู้ร่วมพิธี (ท่าน) *</label>
+          <input type="number" id="bookPassengers" min="1" max="50" required placeholder="ระบุจำนวนคน" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">📝 หมายเหตุเพิ่มเติม</label>
+          <textarea id="bookNotes" rows="2" placeholder="เช่น ขออุปกรณ์ดอกไม้สด, มีผู้สูงอายุ" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 rounded-xl shadow-md transition">
+          ยืนยันการจองคิวเรือ
+        </button>
+
+        <div id="bookingMsg" class="hidden p-4 rounded-lg text-sm text-center font-medium mt-3"></div>
+      </form>
+    </section>
+
+    <!-- 2. แท็บแดชบอร์ดจัดการคิว -->
+    <section id="sectionDashboard" class="hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <span class="text-xs font-semibold text-slate-400 uppercase">คิวทั้งหมด</span>
+          <div class="text-3xl font-bold text-slate-800 mt-1" id="statTotal">0</div>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <span class="text-xs font-semibold text-amber-500 uppercase">รอขึ้นเรือ</span>
+          <div class="text-3xl font-bold text-amber-600 mt-1" id="statPending">0</div>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <span class="text-xs font-semibold text-emerald-500 uppercase">เสร็จสิ้นแล้ว</span>
+          <div class="text-3xl font-bold text-emerald-600 mt-1" id="statDone">0</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row gap-3 items-center justify-between">
+        <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto flex-1">
+          <div class="relative w-full md:w-72">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">🔍</span>
+            <input type="text" id="searchInput" oninput="applyFilters()" placeholder="ค้นหาชื่อเจ้าภาพ หรือ เบอร์โทร..."
+                   class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none">
+          </div>
+
+          <div class="w-full md:w-48">
+            <input type="date" id="filterDate" onchange="applyFilters()"
+                   class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-slate-700">
+          </div>
+
+          <div class="w-full md:w-40">
+            <select id="filterStatus" onchange="applyFilters()"
+                    class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-slate-700">
+              <option value="all">สถานะทั้งหมด</option>
+              <option value="รอขึ้นเรือ">รอขึ้นเรือ</option>
+              <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+              <option value="ยกเลิก">ยกเลิก</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex gap-2 w-full md:w-auto justify-end">
+          <button onclick="resetFilters()" class="px-3 py-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+            ล้างตัวกรอง
+          </button>
+          <button onclick="loadDashboardData()" class="px-3 py-2 text-xs font-semibold text-white bg-sky-700 hover:bg-sky-800 rounded-xl transition flex items-center gap-1">
+            🔄 รีเฟรช
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+          <h3 class="font-bold text-slate-800 text-sm md:text-base">รายการคิวเรือ (<span id="filteredCount">0</span> รายการ)</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 border-b border-slate-100">
+              <tr>
+                <th class="p-4">วัน-เวลา</th>
+                <th class="p-4">เจ้าภาพ / เบอร์โทร</th>
+                <th class="p-4">จำนวนคน</th>
+                <th class="p-4">หมายเหตุ</th>
+                <th class="p-4">สถานะ</th>
+                <th class="p-4 text-center">จัดการสถานะ</th>
+              </tr>
+            </thead>
+            <tbody id="bookingTableBody" class="divide-y divide-slate-100 text-slate-700">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400">กำลังโหลดข้อมูลคิวเรือ...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycby6A28osAzlUWMBM-vi-0XS-hQDAaKmaXETb-hrfixsFdXfcsHLtoe7quX8xnvL95s/exec';
+
+    document.getElementById('bookDate').min = new Date().toISOString().split('T')[0];
+
+    let allBookingsData = [];
+
+    function switchTab(tab) {
+      const bSec = document.getElementById('sectionBooking');
+      const dSec = document.getElementById('sectionDashboard');
+      const bBtn = document.getElementById('tabBtnBooking');
+      const dBtn = document.getElementById('tabBtnDashboard');
+
+      if (tab === 'booking') {
+        bSec.classList.remove('hidden');
+        dSec.classList.add('hidden');
+        bBtn.className = "px-4 py-1.5 rounded-lg text-sm font-medium transition bg-sky-600 text-white";
+        dBtn.className = "px-4 py-1.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white";
+      } else {
+        bSec.classList.add('hidden');
+        dSec.classList.remove('hidden');
+        dBtn.className = "px-4 py-1.5 rounded-lg text-sm font-medium transition bg-sky-600 text-white";
+        bBtn.className = "px-4 py-1.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white";
+        loadDashboardData();
+      }
+    }
+
+    async function fetchAvailableSlots() {
+      const dateVal = document.getElementById('bookDate').value;
+      const slotSelect = document.getElementById('bookSlot');
+      const hint = document.getElementById('slotStatusText');
+
+      if (!dateVal) return;
+
+      slotSelect.disabled = true;
+      hint.classList.remove('hidden');
+      slotSelect.innerHTML = '<option>-- กำลังโหลดรอบเรือ... --</option>';
+
+      try {
+        const res = await fetch(`${API_URL}?action=getSlots&date=${dateVal}`);
+        const data = await res.json();
+        hint.classList.add('hidden');
+        slotSelect.disabled = false;
+        slotSelect.innerHTML = '';
+
+        if (!data.slots || data.slots.length === 0) {
+          slotSelect.innerHTML = '<option value="">❌ วันนี้รอบเต็มทุกรอบแล้ว</option>';
+          slotSelect.disabled = true;
+          return;
+        }
+
+        slotSelect.innerHTML = '<option value="">-- เลือกรอบเวลาเดินทาง --</option>';
+        data.slots.forEach(slot => {
+          const opt = document.createElement('option');
+          opt.value = slot;
+          opt.textContent = slot;
+          slotSelect.appendChild(opt);
+        });
+      } catch (err) {
+        hint.classList.add('hidden');
+        alert('เชื่อมต่อ API ไม่สำเร็จ: ' + err);
+      }
+    }
+
+    async function handleBooking(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      const msg = document.getElementById('bookingMsg');
+
+      btn.disabled = true;
+      btn.textContent = '⏳ กำลังบันทึกการจอง...';
+      msg.className = 'hidden';
+
+      const payload = {
+        action: 'book',
+        date: document.getElementById('bookDate').value,
+        timeSlot: document.getElementById('bookSlot').value,
+        name: document.getElementById('bookName').value,
+        phone: document.getElementById('bookPhone').value,
+        passengers: document.getElementById('bookPassengers').value,
+        notes: document.getElementById('bookNotes').value
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        btn.disabled = false;
+        btn.textContent = 'ยืนยันการจองคิวเรือ';
+        msg.classList.remove('hidden');
+
+        if (result.status === 'success') {
+          msg.className = 'p-4 rounded-lg text-sm text-center font-medium bg-emerald-50 text-emerald-700 border border-emerald-200';
+          msg.textContent = '✅ ' + result.message;
+          document.getElementById('bookingForm').reset();
+          document.getElementById('bookSlot').disabled = true;
+          document.getElementById('bookSlot').innerHTML = '<option value="">-- กรุณาเลือกวันที่ก่อน --</option>';
+        } else {
+          msg.className = 'p-4 rounded-lg text-sm text-center font-medium bg-rose-50 text-rose-700 border border-rose-200';
+          msg.textContent = '⚠️ ' + result.message;
+          fetchAvailableSlots();
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'ยืนยันการจองคิวเรือ';
+        msg.className = 'p-4 rounded-lg text-sm text-center font-medium bg-rose-50 text-rose-700 border border-rose-200';
+        msg.textContent = '❌ ขัดข้อง: ' + err;
+      }
+    }
+
+    async function loadDashboardData() {
+      const tbody = document.getElementById('bookingTableBody');
+      tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-slate-400">กำลังดึงข้อมูลล่าสุด...</td></tr>';
+
+      try {
+        const res = await fetch(`${API_URL}?action=getAllBookings`);
+        const data = await res.json();
+        allBookingsData = data.bookings || [];
+
+        let countPending = 0;
+        let countDone = 0;
+        allBookingsData.forEach(b => {
+          if (b.status === 'รอขึ้นเรือ') countPending++;
+          if (b.status === 'เสร็จสิ้น') countDone++;
+        });
+
+        document.getElementById('statTotal').textContent = allBookingsData.length;
+        document.getElementById('statPending').textContent = countPending;
+        document.getElementById('statDone').textContent = countDone;
+
+        applyFilters();
+
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-rose-500">โหลดข้อมูลไม่สำเร็จ: ${err}</td></tr>`;
+      }
+    }
+
+    function applyFilters() {
+      const searchTxt = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filterDate = document.getElementById('filterDate').value;
+      const filterStatus = document.getElementById('filterStatus').value;
+
+      const filtered = allBookingsData.filter(item => {
+        const matchSearch = !searchTxt || 
+          item.name.toLowerCase().includes(searchTxt) || 
+          item.phone.includes(searchTxt);
+
+        const matchDate = !filterDate || item.date === filterDate;
+        const matchStatus = (filterStatus === 'all') || item.status === filterStatus;
+
+        return matchSearch && matchDate && matchStatus;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(list) {
+      const tbody = document.getElementById('bookingTableBody');
+      document.getElementById('filteredCount').textContent = list.length;
+
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-slate-400">ไม่พบรายการที่ตรงกับเงื่อนไขค้นหา</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = '';
+      list.forEach(b => {
+        let badgeColor = 'bg-slate-100 text-slate-600';
+        if (b.status === 'รออนุมัติ') badgeColor = 'bg-amber-100 text-amber-800 border border-amber-300';
+        if (b.status === 'รอขึ้นเรือ') badgeColor = 'bg-sky-100 text-sky-800 border border-sky-300';
+        if (b.status === 'เสร็จสิ้น') badgeColor = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+        if (b.status === 'ยกเลิก') badgeColor = 'bg-rose-100 text-rose-800 border border-rose-300';
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+        tr.innerHTML = `
+          <td class="p-4">
+            <div class="font-semibold text-slate-900">${formatDisplayDate(b.date)}</div>
+            <div class="text-xs text-sky-600 font-medium">${b.timeSlot}</div>
+          </td>
+          <td class="p-4">
+            <div class="font-medium text-slate-800">${b.name}</div>
+            <div class="text-xs text-slate-400">${b.phone}</div>
+          </td>
+          <td class="p-4 font-semibold">${b.passengers} ท่าน</td>
+          <td class="p-4 text-xs text-slate-500">${b.notes}</td>
+          <td class="p-4">
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">${b.status}</span>
+          </td>
+         <td class="p-4 text-center space-x-1">
+            ${b.status === 'รออนุมัติ' ? `<button onclick="changeStatus(${b.row}, 'รอขึ้นเรือ')" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white text-xs rounded-lg transition font-medium">อนุมัติ</button>` : ''}
+            ${b.status === 'รอขึ้นเรือ' ? `<button onclick="changeStatus(${b.row}, 'เสร็จสิ้น')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs rounded-lg transition font-medium">เสร็จสิ้น</button>` : ''}
+            <button onclick="changeStatus(${b.row}, 'ยกเลิก')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white text-xs rounded-lg transition font-medium">ยกเลิก</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterDate').value = '';
+      document.getElementById('filterStatus').value = 'all';
+      applyFilters();
+    }
+
+    async function changeStatus(row, status) {
+      if (!confirm(`ต้องการเปลี่ยนสถานะแถวที่ ${row} เป็น "${status}" ใช่หรือไม่?`)) return;
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'updateStatus', row: row, status: status })
+        });
+        loadDashboardData();
+      } catch (err) {
+        alert('อัปเดตสถานะไม่สำเร็จ: ' + err);
+      }
+    }
+function formatDisplayDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+  </script>
+</body>
+</html>
