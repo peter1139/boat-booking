@@ -695,52 +695,54 @@
     <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 text-center animate-in fade-in zoom-in duration-200">
       <div class="bg-gradient-to-r from-blue-600 to-sky-600 text-white p-6">
         <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl">
-          💬
+          ✓
         </div>
         <h3 class="text-xl font-bold">บันทึกข้อมูลเรียบร้อยแล้ว!</h3>
-        <p class="text-xs text-sky-100 mt-1">ระบบได้คัดลอกข้อมูลการจองไว้ในเครื่องของท่านแล้ว</p>
+        <p class="text-xs text-sky-100 mt-1">กรุณากดคัดลอกข้อมูล แล้วนำไปวางส่งในแชท Messenger</p>
       </div>
 
       <div class="p-6 space-y-4">
-        <!-- กล่องคำแนะนำขั้นตอนการวางข้อความในแชท -->
-        <div class="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
-          <p class="font-bold text-blue-900 text-sm flex items-center gap-1.5">
-            <span>📌</span> คำแนะนำขั้นตอนการส่งแชท:
+        <!-- กล่องคำแนะนำขั้นตอน 1-2-3 ชัดเจนสำหรับมือถือ -->
+        <div class="p-4 bg-sky-50 border border-sky-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
+          <p class="font-bold text-sky-900 text-sm flex items-center gap-1.5">
+            <span>📱</span> ขั้นตอนการส่งข้อมูลให้แอดมิน:
           </p>
-          <ol class="list-decimal list-inside space-y-1 text-slate-600">
-            <li>กดปุ่มสีน้ำเงิน <strong>"เปิดแชท Messenger"</strong> ด้านล่าง</li>
-            <li>เมื่อเข้าสู่ห้องแชท ให้แตะที่ช่องพิมพ์ข้อความ</li>
-            <li>เลือก <strong>"วาง" (Paste)</strong> แล้วกดส่งได้ทันที!</li>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
+            <li>กดปุ่มสีเขียว <strong>"กดที่นี่เพื่อคัดลอกข้อมูล"</strong> ด้านล่างนี้</li>
+            <li>กดปุ่มสีน้ำเงิน <strong>"เปิดห้องแชท Messenger"</strong></li>
+            <li>แตะค้างที่ช่องพิมพ์ข้อความ (<span class="font-mono bg-slate-200 px-1 rounded">Message</span>) แล้วกด <strong>"วาง" (Paste)</strong></li>
           </ol>
         </div>
 
-        <!-- กล่องแสดงข้อความที่คัดลอก พร้อมปุ่มคัดลอกซ้ำ -->
+        <!-- กล่องแสดงข้อความที่ต้องส่ง -->
         <div class="space-y-1.5 text-left">
-          <label class="text-[11px] font-semibold text-slate-500">ข้อความที่คัดลอกไว้ (ส่งใน Messenger):</label>
-          <div class="relative">
-            <textarea id="copiedTextDisplay" rows="4" readonly 
-                      class="w-full text-xs font-mono bg-slate-100 p-2.5 rounded-xl border border-slate-200 text-slate-700 select-all focus:outline-none"></textarea>
-            <button type="button" onclick="copyBookingTextManual()" 
-                    id="btnManualCopy"
-                    class="absolute top-2 right-2 text-[11px] bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium shadow-sm transition">
-              📋 คัดลอกซ้ำ
-            </button>
+          <div class="flex justify-between items-center">
+            <label class="text-[11px] font-semibold text-slate-600">ข้อความรายละเอียดการจองของคุณ:</label>
+            <span id="copyStatusBadge" class="text-[11px] font-bold text-emerald-600 hidden">✓ คัดลอกสำเร็จ!</span>
           </div>
+          <textarea id="copiedTextDisplay" rows="4" readonly 
+                    class="w-full text-xs font-mono bg-slate-100 p-3 rounded-xl border border-slate-300 text-slate-800 select-all focus:outline-none"></textarea>
         </div>
 
-        <!-- ปุ่ม Action หลัก -->
-        <div class="pt-2 space-y-2">
+        <!-- ปุ่ม Action หลัก: คัดลอกก่อน แล้วเปิดแชท -->
+        <div class="pt-1 space-y-2.5">
+          <button type="button" onclick="copyBookingTextManual()" 
+                  id="btnManualCopy"
+                  class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-md transition flex items-center justify-center gap-2">
+            <span>📋 กดที่นี่เพื่อคัดลอกข้อมูลการจอง</span>
+          </button>
+
           <a id="btnGoMessenger" href="https://m.me/1443042482220416" target="_blank" rel="noopener noreferrer"
              onclick="handleMessengerOpened()"
-             class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition flex items-center justify-center gap-2">
+             class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-lg transition flex items-center justify-center gap-2">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
             </svg>
-            <span>เปิดแชท Messenger เพื่อส่งข้อความ ➔</span>
+            <span>เปิดห้องแชท Messenger ➔</span>
           </a>
 
-          <button type="button" onclick="closeSuccessModal()" class="w-full py-2.5 px-4 text-xs font-medium text-slate-500 hover:text-slate-800 transition">
-            เสร็จสิ้น / ปิดหน้าต่างนี้
+          <button type="button" onclick="closeSuccessModal()" class="w-full py-2 px-4 text-xs font-medium text-slate-400 hover:text-slate-600 transition">
+            ปิดหน้าต่างนี้
           </button>
         </div>
       </div>
@@ -1151,13 +1153,32 @@
 
     function copyBookingTextManual() {
       const btn = document.getElementById('btnManualCopy');
-      copyToClipboard(bookingSummaryText);
-      btn.textContent = '✓ คัดลอกแล้ว!';
-      btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+      const badge = document.getElementById('copyStatusBadge');
+      const textarea = document.getElementById('copiedTextDisplay');
+      
+      // เลือกข้อความใน textarea ให้เห็นชัดเจน
+      if (textarea) {
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+      }
+
+      const success = copyToClipboard(bookingSummaryText);
+      
+      if (btn) {
+        btn.textContent = '✓ คัดลอกสำเร็จแล้ว!';
+        btn.className = 'w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-emerald-700 text-white shadow-md transition flex items-center justify-center gap-2';
+      }
+      if (badge) {
+        badge.classList.remove('hidden');
+      }
+
       setTimeout(() => {
-        btn.textContent = '📋 คัดลอกซ้ำ';
-        btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
-      }, 2000);
+        if (btn) {
+          btn.innerHTML = '<span>📋 คัดลอกข้อมูลอีกครั้ง</span>';
+          btn.className = 'w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-md transition flex items-center justify-center gap-2';
+        }
+      }, 3000);
     }
 
     function handleMessengerOpened() {
