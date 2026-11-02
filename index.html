@@ -705,13 +705,13 @@
     const API_URL = 'https://script.google.com/macros/s/AKfycby6A28osAzlUWMBM-vi-0XS-hQDAaKmaXETb-hrfixsFdXfcsHLtoe7quX8xnvL95s/exec';
 
     // ----------------------------------------------------
-    // ตั้งค่า Facebook Page และ Messenger ของหน่วยงาน
-    // (เปลี่ยนลิงก์เพจหรือ Username Messenger ได้ที่นี่)
+    // ตั้งค่า Facebook Page และ Messenger ของเพจโดยตรง
+    // Page ID จริงจาก Meta Business Suite: 1443042482220416
     // ----------------------------------------------------
-const FACEBOOK_CONFIG = {
-  pageUrl: 'https://www.facebook.com/profile.php?id=61595817585230',
-  messengerUrl: 'https://m.me/61595817585230'
-};
+    const FACEBOOK_CONFIG = {
+      pageUrl: 'https://www.facebook.com/1443042482220416',
+      messengerUrl: 'https://m.me/1443042482220416'
+    };
 
     document.addEventListener('DOMContentLoaded', () => {
       const homeFb = document.getElementById('homeFacebookBtn');
@@ -1076,22 +1076,49 @@ const FACEBOOK_CONFIG = {
         msg.classList.remove('hidden');
 
         if (result.status === 'success') {
+          // สรุปข้อความจองคิว
+          const rawSummary = 
+            `[แจ้งจองคิวเรือลอยอังคาร นสร.5]\n` +
+            `📅 วันที่: ${formatDisplayDate(pendingPayload.date)}\n` +
+            `🕒 รอบเวลา: ${pendingPayload.timeSlot}\n` +
+            `👤 เจ้าภาพ: ${pendingPayload.name}\n` +
+            `📞 เบอร์: ${pendingPayload.phone}\n` +
+            `👥 จำนวน: ${pendingPayload.passengers} ท่าน\n` +
+            `📝 หมายเหตุ: ${pendingPayload.notes || '-'}`;
+
+          // คัดลอกข้อความลง Clipboard อัตโนมัติ เพื่อให้ลูกค้านำไป Paste ส่งในแชทได้ทันที
+          try {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = rawSummary;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          } catch(e) {}
+
+          const targetMessengerUrl = FACEBOOK_CONFIG.messengerUrl;
+
           msg.className = 'p-5 rounded-2xl text-sm text-center font-medium bg-emerald-50 text-emerald-900 border border-emerald-200 space-y-3';
           msg.innerHTML = `
             <div>
-              <p class="font-bold text-base text-emerald-800">✅ ส่งคำขอจองคิวสำเร็จ!</p>
-              <p class="text-xs text-emerald-700 mt-1">ข้อมูลและสลิปมัดจำถูกส่งเรียบร้อยแล้ว (สถานะ: รออนุมัติ)</p>
+              <p class="font-bold text-base text-emerald-800">✅ บันทึกข้อมูลเรียบร้อยแล้ว!</p>
+              <p class="text-xs text-emerald-700 mt-1">คัดลอกรายละเอียดการจองแล้ว กำลังนำท่านเข้าสู่ Messenger เพจเจ้าหน้าที่...</p>
             </div>
-            <div class="pt-2">
-              <a href="${FACEBOOK_CONFIG.messengerUrl}" target="_blank" rel="noopener noreferrer" 
+            <div class="pt-2 flex flex-col sm:flex-row gap-2 justify-center items-center">
+              <a href="${targetMessengerUrl}" 
                  class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/></svg>
-                <span>ทักแชท Messenger เพื่อยืนยันกับเจ้าหน้าที่</span>
+                <span>กดตรงนี้เพื่อเปิดแชท Messenger ทันที</span>
                 <span>➔</span>
               </a>
             </div>
           `;
-          
+
+          // นำพาลูกค้าเด้งเข้าแอป/หน้าแชทเพจ Messenger ทันที (แก้ปัญหาโดนบล็อก Popup)
+          setTimeout(() => {
+            window.location.href = targetMessengerUrl;
+          }, 1200);
+
           document.getElementById('bookingForm').reset();
           removeSlip();
           document.getElementById('selectedSlot').value = '';
