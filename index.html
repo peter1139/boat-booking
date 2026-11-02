@@ -690,6 +690,63 @@
     </div>
   </div>
 
+  <!-- Modal แจ้งเตือนการจองสำเร็จ พร้อมคัดลอกข้อมูลและปุ่มเปิดแชท Messenger -->
+  <div id="bookingSuccessModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[70] flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 text-center animate-in fade-in zoom-in duration-200">
+      <div class="bg-gradient-to-r from-blue-600 to-sky-600 text-white p-6">
+        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl">
+          💬
+        </div>
+        <h3 class="text-xl font-bold">บันทึกข้อมูลเรียบร้อยแล้ว!</h3>
+        <p class="text-xs text-sky-100 mt-1">ระบบได้คัดลอกข้อมูลการจองไว้ในเครื่องของท่านแล้ว</p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <!-- กล่องคำแนะนำขั้นตอนการวางข้อความในแชท -->
+        <div class="p-4 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
+          <p class="font-bold text-blue-900 text-sm flex items-center gap-1.5">
+            <span>📌</span> คำแนะนำขั้นตอนการส่งแชท:
+          </p>
+          <ol class="list-decimal list-inside space-y-1 text-slate-600">
+            <li>กดปุ่มสีน้ำเงิน <strong>"เปิดแชท Messenger"</strong> ด้านล่าง</li>
+            <li>เมื่อเข้าสู่ห้องแชท ให้แตะที่ช่องพิมพ์ข้อความ</li>
+            <li>เลือก <strong>"วาง" (Paste)</strong> แล้วกดส่งได้ทันที!</li>
+          </ol>
+        </div>
+
+        <!-- กล่องแสดงข้อความที่คัดลอก พร้อมปุ่มคัดลอกซ้ำ -->
+        <div class="space-y-1.5 text-left">
+          <label class="text-[11px] font-semibold text-slate-500">ข้อความที่คัดลอกไว้ (ส่งใน Messenger):</label>
+          <div class="relative">
+            <textarea id="copiedTextDisplay" rows="4" readonly 
+                      class="w-full text-xs font-mono bg-slate-100 p-2.5 rounded-xl border border-slate-200 text-slate-700 select-all focus:outline-none"></textarea>
+            <button type="button" onclick="copyBookingTextManual()" 
+                    id="btnManualCopy"
+                    class="absolute top-2 right-2 text-[11px] bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium shadow-sm transition">
+              📋 คัดลอกซ้ำ
+            </button>
+          </div>
+        </div>
+
+        <!-- ปุ่ม Action หลัก -->
+        <div class="pt-2 space-y-2">
+          <a id="btnGoMessenger" href="https://m.me/1443042482220416" target="_blank" rel="noopener noreferrer"
+             onclick="handleMessengerOpened()"
+             class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition flex items-center justify-center gap-2">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
+            </svg>
+            <span>เปิดแชท Messenger เพื่อส่งข้อความ ➔</span>
+          </a>
+
+          <button type="button" onclick="closeSuccessModal()" class="w-full py-2.5 px-4 text-xs font-medium text-slate-500 hover:text-slate-800 transition">
+            เสร็จสิ้น / ปิดหน้าต่างนี้
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal ขยายดูภาพสลิปขนาดเต็ม สำหรับแอดมินและผู้ใช้งาน -->
   <div id="slipModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] flex items-center justify-center p-4" onclick="closeSlipModal()">
     <div class="relative max-w-lg w-full bg-slate-900 p-2 rounded-2xl shadow-2xl border border-slate-700" onclick="event.stopPropagation()">
@@ -784,6 +841,7 @@
     let pendingPayload = null;
     let isAdminAuthenticated = false;
     let uploadedSlipBase64 = '';
+    let bookingSummaryText = '';
 
     function handleSlipUpload(e) {
       const file = e.target.files[0];
@@ -1050,6 +1108,65 @@
       document.getElementById('confirmModal').classList.add('hidden');
     }
 
+    function closeSuccessModal() {
+      document.getElementById('bookingSuccessModal').classList.add('hidden');
+      navigateTo('home');
+    }
+
+    function generateSummaryText(payload) {
+      return `⚓ [แจ้งจองคิวเรือลอยอังคาร - นสร.5]\n` +
+             `📅 วันที่: ${formatDisplayDate(payload.date)}\n` +
+             `🕒 รอบเวลา: ${payload.timeSlot} น.\n` +
+             `👤 เจ้าภาพ: ${payload.name}\n` +
+             `📞 โทร: ${payload.phone}\n` +
+             `👥 จำนวนผู้ร่วมพิธี: ${payload.passengers} ท่าน\n` +
+             `📝 หมายเหตุ: ${payload.notes || '-'}\n` +
+             `🧾 (ได้แนบสลิปผ่านทางหน้าเว็บเรียบร้อยแล้วครับ/ค่ะ)`;
+    }
+
+    async function copyToClipboard(text) {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch (e) {
+        // Fallback ด้านล่าง
+      }
+
+      try {
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = text;
+        tempTextArea.style.position = 'fixed';
+        tempTextArea.style.left = '-9999px';
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function copyBookingTextManual() {
+      const btn = document.getElementById('btnManualCopy');
+      copyToClipboard(bookingSummaryText);
+      btn.textContent = '✓ คัดลอกแล้ว!';
+      btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+      setTimeout(() => {
+        btn.textContent = '📋 คัดลอกซ้ำ';
+        btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+      }, 2000);
+    }
+
+    function handleMessengerOpened() {
+      // เมื่อผู้ใช้กดปุ่มเปิด Messenger
+      setTimeout(() => {
+        closeSuccessModal();
+      }, 1500);
+    }
+
     async function submitBookingConfirmed() {
       if (!pendingPayload) return;
 
@@ -1060,6 +1177,10 @@
       btnModal.disabled = true;
       btnModal.textContent = '⏳ กำลังบันทึกข้อมูล...';
       btnMain.disabled = true;
+
+      // เตรียมข้อความสรุปการจอง และทำการ Auto-copy
+      bookingSummaryText = generateSummaryText(pendingPayload);
+      copyToClipboard(bookingSummaryText);
 
       try {
         const res = await fetch(API_URL, {
@@ -1073,59 +1194,26 @@
         btnModal.disabled = false;
         btnModal.textContent = 'ยืนยันส่งข้อมูล';
         btnMain.disabled = false;
-        msg.classList.remove('hidden');
 
         if (result.status === 'success') {
-          // สรุปข้อความจองคิว
-          const rawSummary = 
-            `[แจ้งจองคิวเรือลอยอังคาร นสร.5]\n` +
-            `📅 วันที่: ${formatDisplayDate(pendingPayload.date)}\n` +
-            `🕒 รอบเวลา: ${pendingPayload.timeSlot}\n` +
-            `👤 เจ้าภาพ: ${pendingPayload.name}\n` +
-            `📞 เบอร์: ${pendingPayload.phone}\n` +
-            `👥 จำนวน: ${pendingPayload.passengers} ท่าน\n` +
-            `📝 หมายเหตุ: ${pendingPayload.notes || '-'}`;
-
-          // คัดลอกข้อความลง Clipboard อัตโนมัติ เพื่อให้ลูกค้านำไป Paste ส่งในแชทได้ทันที
-          try {
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = rawSummary;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-          } catch(e) {}
-
-          const targetMessengerUrl = FACEBOOK_CONFIG.messengerUrl;
-
-          msg.className = 'p-5 rounded-2xl text-sm text-center font-medium bg-emerald-50 text-emerald-900 border border-emerald-200 space-y-3';
-          msg.innerHTML = `
-            <div>
-              <p class="font-bold text-base text-emerald-800">✅ บันทึกข้อมูลเรียบร้อยแล้ว!</p>
-              <p class="text-xs text-emerald-700 mt-1">คัดลอกรายละเอียดการจองแล้ว กำลังนำท่านเข้าสู่ Messenger เพจเจ้าหน้าที่...</p>
-            </div>
-            <div class="pt-2 flex flex-col sm:flex-row gap-2 justify-center items-center">
-              <a href="${targetMessengerUrl}" 
-                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/></svg>
-                <span>กดตรงนี้เพื่อเปิดแชท Messenger ทันที</span>
-                <span>➔</span>
-              </a>
-            </div>
-          `;
-
-          // นำพาลูกค้าเด้งเข้าแอป/หน้าแชทเพจ Messenger ทันที (แก้ปัญหาโดนบล็อก Popup)
-          setTimeout(() => {
-            window.location.href = targetMessengerUrl;
-          }, 1200);
-
+          // รีเซ็ตฟอร์ม
           document.getElementById('bookingForm').reset();
           removeSlip();
           document.getElementById('selectedSlot').value = '';
           document.getElementById('slotsGrid').classList.add('hidden');
           document.getElementById('slotPlaceholder').classList.remove('hidden');
           document.getElementById('slotSummaryBadge').classList.add('hidden');
+
+          // ใส่ข้อความในช่องแสดงผล
+          document.getElementById('copiedTextDisplay').value = bookingSummaryText;
+          
+          // คัดลอกอีกครั้งเพื่อความชัวร์
+          copyToClipboard(bookingSummaryText);
+
+          // แสดง Modal แนะนำให้ลูกค้าเปิดแชท Messenger
+          document.getElementById('bookingSuccessModal').classList.remove('hidden');
         } else {
+          msg.classList.remove('hidden');
           msg.className = 'p-4 rounded-xl text-sm text-center font-medium bg-rose-50 text-rose-700 border border-rose-200';
           msg.textContent = '⚠️ ' + (result.message || 'บันทึกไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
           handleDateChange();
