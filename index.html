@@ -39,6 +39,16 @@
 
         <!-- Menu Links -->
         <div class="flex items-center space-x-2 md:space-x-3 text-xs md:text-sm font-medium">
+          <!-- ปุ่มเพจ Facebook (ก่อนปุ่มจองคิวเรือ) เปลี่ยนชื่อปุ่มเป็น เรือลอยอังคาร -->
+          <a href="https://www.facebook.com/1443042482220416" target="_blank" rel="noopener noreferrer" 
+             title="ติดตามข้อมูลและข่าวสารผ่านเพจ เรือลอยอังคาร"
+             class="px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-medium bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white transition shadow-sm hover:shadow flex items-center gap-1.5 border border-blue-500/30">
+            <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span class="tracking-wide">เรือลอยอังคาร</span>
+          </a>
+
           <button onclick="navigateTo('booking')" class="px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-bold bg-sky-600 hover:bg-sky-700 text-white transition shadow flex items-center gap-1.5">
             <span>📝 จองคิวเรือ</span>
           </button>
@@ -91,12 +101,12 @@
               <span>โทรจอง</span>
             </a>
 
-            <a href="https://m.me" target="_blank" rel="noopener noreferrer" id="heroMessengerBtn"
-               class="px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition flex items-center gap-2">
+            <a href="https://line.me" target="_blank" rel="noopener noreferrer" id="heroLineBtn"
+               class="px-7 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition flex items-center gap-2">
               <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
+                <path d="M12 2C6.48 2 2 5.82 2 10.53c0 2.91 1.76 5.48 4.43 7.03-.2.7-.72 2.53-.82 2.92-.13.48.18.47.37.34.16-.1 2.22-1.52 3.12-2.14.93.26 1.9.4 2.9.4 5.52 0 10-3.82 10-8.53S17.52 2 12 2zm-3.69 11.23h-1.9v-5.4h1.9v5.4zm3.93 0h-1.64l-2.09-2.91v2.91h-1.67v-5.4h1.64l2.09 2.91v-2.91h1.67v5.4zm3.78-3.79h-1.92v1.07h1.92v1.36h-1.92v1.36h2.24v1.36H14.1v-5.4h3.92v1.36zm3.69 3.79h-1.9v-5.4h1.9v5.4z"/>
               </svg>
-              <span>แชท Messenger</span>
+              <span>แชท LINE</span>
             </a>
           </div>
         </section>
@@ -251,31 +261,10 @@
           </div>
         </section>
 
-        <!-- การ์ดติดตามข่าวสาร Facebook -->
-        <div class="bg-white/95 backdrop-blur-md border border-blue-200/80 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg text-center sm:text-left">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md">
-              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </div>
-            <div>
-              <h4 class="text-sm font-bold text-slate-800">ติดตามภาพบรรยากาศพิธีทาง Facebook</h4>
-              <p class="text-xs text-slate-500">ชมภาพเรือตรวจการณ์ นสร.5 และสอบถามขั้นตอนพิธีการได้ตลอดเวลา</p>
-            </div>
-          </div>
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" 
-             id="homeFacebookBtn"
-             class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs md:text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition shadow whitespace-nowrap">
-            <span>ไปยังเพจ Facebook</span>
-            <span>↗</span>
-          </a>
-        </div>
-
         <!-- ========================================================= -->
-        <!-- ส่วนที่ 3: กล่องให้คำปรึกษา & Facebook Messenger Contact -->
+        <!-- ส่วนที่ 3: กล่องให้คำปรึกษา & LINE Contact -->
         <!-- ========================================================= -->
-        <div id="consultSection" class="bg-gradient-to-br from-blue-50 to-sky-50 border border-blue-200 rounded-3xl p-6 md:p-8 shadow-xl">
+        <div id="consultSection" class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl p-6 md:p-8 shadow-xl">
           <div class="flex items-center gap-2 mb-4">
             <span class="text-2xl">💬</span>
             <div>
@@ -284,17 +273,17 @@
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center gap-5 bg-white p-5 rounded-2xl border border-blue-100 shadow-sm">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-500 text-white flex items-center justify-center shrink-0 shadow-md">
-              <svg class="w-9 h-9 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
+          <div class="flex flex-col sm:flex-row items-center gap-5 bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-green-500 text-white flex items-center justify-center shrink-0 shadow-md">
+              <svg class="w-10 h-10 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 5.82 2 10.53c0 2.91 1.76 5.48 4.43 7.03-.2.7-.72 2.53-.82 2.92-.13.48.18.47.37.34.16-.1 2.22-1.52 3.12-2.14.93.26 1.9.4 2.9.4 5.52 0 10-3.82 10-8.53S17.52 2 12 2zm-3.69 11.23h-1.9v-5.4h1.9v5.4zm3.93 0h-1.64l-2.09-2.91v2.91h-1.67v-5.4h1.64l2.09 2.91v-2.91h1.67v5.4zm3.78-3.79h-1.92v1.07h1.92v1.36h-1.92v1.36h2.24v1.36H14.1v-5.4h3.92v1.36zm3.69 3.79h-1.9v-5.4h1.9v5.4z"/>
               </svg>
             </div>
 
             <div class="flex-1 text-center sm:text-left space-y-2">
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white shadow-sm">
-                  Facebook Messenger
+                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-sm">
+                  LINE แชทสอบถาม
                 </span>
                 <span class="text-xs text-slate-500">ตอบกลับรวดเร็วโดยเจ้าหน้าที่ประจำเรือ</span>
               </div>
@@ -304,9 +293,9 @@
               </p>
               
               <div class="pt-1 flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
-                <a id="consultMessengerBtn" href="https://m.me" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm">
-                  <span>💬 ส่งข้อความทาง Messenger</span>
+                <a id="consultLineBtn" href="https://line.me" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm">
+                  <span>💬 แชทผ่าน LINE</span>
                   <span>➔</span>
                 </a>
                 <a href="tel:0626365924" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-900 text-white transition shadow-sm">
@@ -690,27 +679,27 @@
     </div>
   </div>
 
-  <!-- Modal แจ้งเตือนการจองสำเร็จ พร้อมคัดลอกข้อมูลและปุ่มเปิดแชท Messenger -->
+  <!-- Modal แจ้งเตือนการจองสำเร็จ พร้อมคัดลอกข้อมูลและปุ่มเปิดแชท LINE -->
   <div id="bookingSuccessModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[70] flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 text-center animate-in fade-in zoom-in duration-200">
-      <div class="bg-gradient-to-r from-blue-600 to-sky-600 text-white p-6">
+      <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
         <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl">
           ✓
         </div>
         <h3 class="text-xl font-bold">บันทึกข้อมูลเรียบร้อยแล้ว!</h3>
-        <p class="text-xs text-sky-100 mt-1">กรุณากดคัดลอกข้อมูล แล้วนำไปวางส่งในแชท Messenger</p>
+        <p class="text-xs text-emerald-100 mt-1">กรุณากดคัดลอกข้อมูล แล้วนำไปวางส่งในแชท LINE เพื่อยืนยันกับเจ้าหน้าที่</p>
       </div>
 
       <div class="p-6 space-y-4">
         <!-- กล่องคำแนะนำขั้นตอน 1-2-3 ชัดเจนสำหรับมือถือ -->
-        <div class="p-4 bg-sky-50 border border-sky-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
-          <p class="font-bold text-sky-900 text-sm flex items-center gap-1.5">
+        <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
+          <p class="font-bold text-emerald-900 text-sm flex items-center gap-1.5">
             <span>📱</span> ขั้นตอนการส่งข้อมูลให้แอดมิน:
           </p>
           <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
             <li>กดปุ่มสีเขียว <strong>"กดที่นี่เพื่อคัดลอกข้อมูล"</strong> ด้านล่างนี้</li>
-            <li>กดปุ่มสีน้ำเงิน <strong>"เปิดห้องแชท Messenger"</strong></li>
-            <li>แตะค้างที่ช่องพิมพ์ข้อความ (<span class="font-mono bg-slate-200 px-1 rounded">Message</span>) แล้วกด <strong>"วาง" (Paste)</strong></li>
+            <li>กดปุ่ม <strong>"เปิดห้องแชท LINE"</strong></li>
+            <li>แตะค้างที่ช่องพิมพ์ข้อความใน LINE แล้วกด <strong>"วาง" (Paste)</strong> แล้วกดส่งได้ทันที</li>
           </ol>
         </div>
 
@@ -724,7 +713,7 @@
                     class="w-full text-xs font-mono bg-slate-100 p-3 rounded-xl border border-slate-300 text-slate-800 select-all focus:outline-none"></textarea>
         </div>
 
-        <!-- ปุ่ม Action หลัก: คัดลอกก่อน แล้วเปิดแชท -->
+        <!-- ปุ่ม Action หลัก: คัดลอกก่อน แล้วเปิดแชท LINE -->
         <div class="pt-1 space-y-2.5">
           <button type="button" onclick="copyBookingTextManual()" 
                   id="btnManualCopy"
@@ -732,13 +721,13 @@
             <span>📋 กดที่นี่เพื่อคัดลอกข้อมูลการจอง</span>
           </button>
 
-          <a id="btnGoMessenger" href="https://m.me/1443042482220416" target="_blank" rel="noopener noreferrer"
-             onclick="handleMessengerOpened()"
-             class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-lg transition flex items-center justify-center gap-2">
+          <a id="btnGoLine" href="https://line.me" target="_blank" rel="noopener noreferrer"
+             onclick="handleLineOpened()"
+             class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-green-600 hover:bg-green-700 active:scale-95 text-white shadow-lg transition flex items-center justify-center gap-2">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.247.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.964 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
+              <path d="M12 2C6.48 2 2 5.82 2 10.53c0 2.91 1.76 5.48 4.43 7.03-.2.7-.72 2.53-.82 2.92-.13.48.18.47.37.34.16-.1 2.22-1.52 3.12-2.14.93.26 1.9.4 2.9.4 5.52 0 10-3.82 10-8.53S17.52 2 12 2zm-3.69 11.23h-1.9v-5.4h1.9v5.4zm3.93 0h-1.64l-2.09-2.91v2.91h-1.67v-5.4h1.64l2.09 2.91v-2.91h1.67v5.4zm3.78-3.79h-1.92v1.07h1.92v1.36h-1.92v1.36h2.24v1.36H14.1v-5.4h3.92v1.36zm3.69 3.79h-1.9v-5.4h1.9v5.4z"/>
             </svg>
-            <span>เปิดห้องแชท Messenger ➔</span>
+            <span>เปิดห้องแชท LINE ➔</span>
           </a>
 
           <button type="button" onclick="closeSuccessModal()" class="w-full py-2 px-4 text-xs font-medium text-slate-400 hover:text-slate-600 transition">
@@ -764,22 +753,21 @@
     const API_URL = 'https://script.google.com/macros/s/AKfycby6A28osAzlUWMBM-vi-0XS-hQDAaKmaXETb-hrfixsFdXfcsHLtoe7quX8xnvL95s/exec';
 
     // ----------------------------------------------------
-    // ตั้งค่า Facebook Page และ Messenger ของเพจโดยตรง
-    // Page ID จริงจาก Meta Business Suite: 1443042482220416
+    // ตั้งค่า LINE ของทางเรือ / หน่วยซีล
+    // ใส่ลิงก์ LINE OA หรือ Line ID เช่น https://line.me/ti/p/~your_line_id
     // ----------------------------------------------------
-    const FACEBOOK_CONFIG = {
-      pageUrl: 'https://www.facebook.com/1443042482220416',
-      messengerUrl: 'https://m.me/1443042482220416'
+    const LINE_CONFIG = {
+      lineUrl: 'https://line.me/ti/p/~0626365924'
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-      const homeFb = document.getElementById('homeFacebookBtn');
-      const heroMessenger = document.getElementById('heroMessengerBtn');
-      const consultMessenger = document.getElementById('consultMessengerBtn');
+      const heroLine = document.getElementById('heroLineBtn');
+      const consultLine = document.getElementById('consultLineBtn');
+      const modalLine = document.getElementById('btnGoLine');
 
-      if (homeFb) homeFb.href = FACEBOOK_CONFIG.pageUrl;
-      if (heroMessenger) heroMessenger.href = FACEBOOK_CONFIG.messengerUrl;
-      if (consultMessenger) consultMessenger.href = FACEBOOK_CONFIG.messengerUrl;
+      if (heroLine) heroLine.href = LINE_CONFIG.lineUrl;
+      if (consultLine) consultLine.href = LINE_CONFIG.lineUrl;
+      if (modalLine) modalLine.href = LINE_CONFIG.lineUrl;
     });
 
     let currentView = 'home';
@@ -1181,8 +1169,8 @@
       }, 3000);
     }
 
-    function handleMessengerOpened() {
-      // เมื่อผู้ใช้กดปุ่มเปิด Messenger
+    function handleLineOpened() {
+      // เมื่อผู้ใช้กดปุ่มเปิด LINE
       setTimeout(() => {
         closeSuccessModal();
       }, 1500);
@@ -1231,7 +1219,7 @@
           // คัดลอกอีกครั้งเพื่อความชัวร์
           copyToClipboard(bookingSummaryText);
 
-          // แสดง Modal แนะนำให้ลูกค้าเปิดแชท Messenger
+          // แสดง Modal แนะนำให้ลูกค้าเปิดแชท LINE
           document.getElementById('bookingSuccessModal').classList.remove('hidden');
         } else {
           msg.classList.remove('hidden');
