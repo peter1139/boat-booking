@@ -4,49 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เรือลอยอังคาร โดยหน่วยซีล สัตหีบ - รับประกอบพิธีลอยอังคารอัฐิ / เถ้ากระดูก</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Kanit', sans-serif; }
+    /* ซ่อน Scrollbar แนวนอน */
+    html, body { max-width: 100%; overflow-x: hidden; }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 relative bg-slate-900">
+<body class="min-h-screen text-slate-800 relative bg-slate-900 selection:bg-sky-500 selection:text-white">
 
-  <!-- Background Image Layer: ภาพเรือ นสร. 5 และ Overlay -->
+  <!-- Background Image Layer: ภาพเรือ นสร. 5 และ Overlay มืดเพื่อความคมชัดของเนื้อหา -->
   <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
     <img id="boatBgImage" 
-         src="boat.jpg" 
+         src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=2000&q=80" 
          alt="เรือลอยอังคาร นสร.5" 
          class="w-full h-full object-cover object-center filter brightness-90">
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/75 to-slate-950/85 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-900/80 to-slate-950/90 backdrop-blur-[2px]"></div>
   </div>
 
-  <div class="relative z-10 min-h-screen flex flex-col">
+  <div class="relative z-10 min-h-screen flex flex-col justify-between">
 
-    <!-- Navbar: สไตล์ตรงตามรูปต้นแบบ พร้อมเมนูนำทาง -->
+    <!-- Navbar: ดีไซน์สวยงาม พร้อมเมนูนำทาง -->
     <nav class="bg-white/95 backdrop-blur-md text-slate-800 shadow-md sticky top-0 z-40 border-b border-slate-200">
       <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <!-- Logo & Brand Name -->
         <a href="javascript:void(0)" onclick="navigateTo('home')" class="flex items-center space-x-3 group cursor-pointer">
-          <div class="w-10 h-10 rounded-full bg-sky-900 text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-sky-400 group-hover:scale-105 transition">
+          <div class="w-10 h-10 rounded-full bg-sky-950 text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-sky-400 group-hover:scale-105 transition">
             ⚓
           </div>
           <div>
-            <h1 class="font-bold text-base md:text-lg text-sky-900 leading-tight">เรือลอยอังคาร โดยหน่วยซีล สัตหีบ</h1>
+            <h1 class="font-bold text-sm sm:text-base md:text-lg text-sky-950 leading-tight">เรือลอยอังคาร โดยหน่วยซีล สัตหีบ</h1>
             <p class="text-[11px] text-slate-500 hidden sm:block">โดย นาวาโท อนันต์ นุชนารถ</p>
           </div>
         </a>
 
         <!-- Menu Links -->
         <div class="flex items-center space-x-2 md:space-x-3 text-xs md:text-sm font-medium">
-          <!-- ปุ่มเพจ Facebook (ก่อนปุ่มจองคิวเรือ) เปลี่ยนชื่อปุ่มเป็น เรือลอยอังคาร -->
+          <!-- ปุ่ม Facebook Page -->
           <a href="https://www.facebook.com/1443042482220416" target="_blank" rel="noopener noreferrer" 
              title="ติดตามข้อมูลและข่าวสารผ่านเพจ เรือลอยอังคาร"
              class="px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-medium bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white transition shadow-sm hover:shadow flex items-center gap-1.5 border border-blue-500/30">
             <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
-            <span class="tracking-wide">เรือลอยอังคาร</span>
+            <span class="tracking-wide hidden xs:inline">เพจเรือลอยอังคาร</span>
           </a>
 
           <button onclick="navigateTo('booking')" class="px-3.5 py-1.5 rounded-xl text-xs md:text-sm font-bold bg-sky-600 hover:bg-sky-700 text-white transition shadow flex items-center gap-1.5">
@@ -67,12 +73,12 @@
       <!-- 1. หน้าแรก (Home / Landing Page) -->
       <!-- ========================================== -->
       <div id="viewHome" class="space-y-10">
-        <!-- Hero Header Section: ตรงตามหน้าเว็บจริง -->
+        <!-- Hero Header Section -->
         <section class="text-center py-10 md:py-16 px-4 rounded-3xl bg-white/95 backdrop-blur-md shadow-2xl border border-white/40">
-          <h2 class="text-3xl md:text-5xl font-black text-sky-500 tracking-tight drop-shadow-sm mb-2">
+          <h2 class="text-3xl md:text-5xl font-black text-sky-600 tracking-tight drop-shadow-sm mb-2">
             รับประกอบพิธี
           </h2>
-          <h3 class="text-2xl md:text-4xl font-bold text-sky-600 tracking-wide mb-4">
+          <h3 class="text-2xl md:text-4xl font-bold text-sky-900 tracking-wide mb-4">
             ลอยอังคารอัฐิ / เถ้ากระดูก
           </h3>
           
@@ -82,7 +88,7 @@
 
           <!-- เบอร์โทรเน้นชัดเจน -->
           <div class="mt-4 text-base md:text-xl font-bold text-slate-900 flex items-center justify-center gap-2">
-            <span>โทรเลย</span>
+            <span>โทรสายด่วน:</span>
             <a href="tel:0626365924" class="text-sky-700 hover:text-sky-900 hover:underline tracking-wide">+66 6 2636 5924</a>
           </div>
 
@@ -98,10 +104,10 @@
             <a href="tel:0626365924" 
                class="px-7 py-3.5 rounded-full bg-stone-700 hover:bg-stone-800 text-white font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition flex items-center gap-2">
               <span>📞</span>
-              <span>โทรจอง</span>
+              <span>โทรสอบถาม</span>
             </a>
 
-            <a href="https://line.me" target="_blank" rel="noopener noreferrer" id="heroLineBtn"
+            <a href="https://line.me/ti/p/~0626365924" target="_blank" rel="noopener noreferrer" id="heroLineBtn"
                class="px-7 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition flex items-center gap-2">
               <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 5.82 2 10.53c0 2.91 1.76 5.48 4.43 7.03-.2.7-.72 2.53-.82 2.92-.13.48.18.47.37.34.16-.1 2.22-1.52 3.12-2.14.93.26 1.9.4 2.9.4 5.52 0 10-3.82 10-8.53S17.52 2 12 2zm-3.69 11.23h-1.9v-5.4h1.9v5.4zm3.93 0h-1.64l-2.09-2.91v2.91h-1.67v-5.4h1.64l2.09 2.91v-2.91h1.67v5.4zm3.78-3.79h-1.92v1.07h1.92v1.36h-1.92v1.36h2.24v1.36H14.1v-5.4h3.92v1.36zm3.69 3.79h-1.9v-5.4h1.9v5.4z"/>
@@ -111,12 +117,10 @@
           </div>
         </section>
 
-        <!-- ========================================================= -->
-        <!-- ส่วนที่ 1: ขั้นตอนการใช้บริการ & สิ่งที่ทางเรือเตรียมให้ (PDF น.2-5) -->
-        <!-- ========================================================= -->
+        <!-- ขั้นตอนการใช้บริการ & สิ่งที่ทางเรือเตรียมให้ -->
         <section id="ceremonySteps" class="bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
           <div class="text-center max-w-2xl mx-auto mb-8">
-            <span class="text-xs uppercase font-bold tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+            <span class="text-xs uppercase font-bold tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
               SERVICE PROCEDURE & RITUAL OFFERINGS
             </span>
             <h3 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2">ขั้นตอนการใช้บริการ</h3>
@@ -127,7 +131,7 @@
 
           <div class="bg-gradient-to-r from-sky-900 to-blue-950 text-white rounded-2xl p-5 md:p-6 mb-6 shadow-md">
             <h4 class="text-lg font-bold flex items-center gap-2 text-sky-300">
-              <span>🌸</span> สิ่งที่ทางเรือเตรียมให้สำหรับประกอบพิธี
+              <span>🌸</span> สิ่งที่ทางเรือจัดเตรียมให้สำหรับประกอบพิธี
             </h4>
             <p class="text-xs text-sky-100 mt-1">จัดเตรียมของมงคลและเครื่องไหว้ถูกต้องตามประเพณีทหารเรือและแบบแผนพิธีลอยอังคาร</p>
           </div>
@@ -181,12 +185,10 @@
           </div>
         </section>
 
-        <!-- ========================================================= -->
-        <!-- ส่วนที่ 2: อัตราค่าบริการเรือตรวจการณ์ น.ส.ร. (PDF น.6-7) -->
-        <!-- ========================================================= -->
+        <!-- อัตราค่าบริการเรือตรวจการณ์ -->
         <section id="boatRates" class="bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
           <div class="text-center max-w-2xl mx-auto mb-8">
-            <span class="text-xs uppercase font-bold tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+            <span class="text-xs uppercase font-bold tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
               BOAT RATES & SPECIFICATIONS
             </span>
             <h3 class="text-2xl md:text-3xl font-bold text-slate-800 mt-2">อัตราค่าบริการเรือลอยอังคาร</h3>
@@ -196,14 +198,27 @@
           </div>
 
           <div class="max-w-xl mx-auto">
-            <!-- เรือ นสร.5 (เรือให้บริการหลักลำเดียว) -->
             <div class="rounded-3xl border-2 border-sky-500 bg-white overflow-hidden shadow-2xl transition flex flex-col justify-between relative ring-4 ring-sky-100">
-              <div class="absolute top-0 right-0 bg-gradient-to-l from-sky-600 to-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl shadow-sm flex items-center gap-1">
+              <div class="absolute top-0 right-0 bg-gradient-to-l from-sky-600 to-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl shadow-sm flex items-center gap-1 z-10">
                 <span>⭐ เรือตรวจการณ์ประจำการ</span>
               </div>
+
+              <!-- ส่วนแสดงรูปภาพเรือ นสร.5 -->
+              <div class="relative w-full h-56 sm:h-64 bg-slate-900 overflow-hidden">
+                <img id="boatCardImage" 
+                     src="boat.jpg" 
+                     alt="เรือตรวจการณ์ นสร.5 หน่วยซีล สัตหีบ" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80';"
+                     class="w-full h-full object-cover object-center hover:scale-105 transition duration-500 cursor-pointer"
+                     onclick="viewLargeSlip(this.src)">
+                <div class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1">
+                  <span>🔍 แตะดูรูปเรือขยายใหญ่</span>
+                </div>
+              </div>
+
               <div class="p-6 md:p-8">
                 <div class="flex items-center gap-2 mb-3">
-                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800">เรือขนาดใหญ่</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800">เรือตรวจการณ์พิเศษ</span>
                   <span class="text-xs text-sky-600 font-semibold">หน่วยซีล สัตหีบ</span>
                 </div>
                 <h4 class="text-3xl font-black text-slate-900">เรือตรวจการณ์ นสร.5</h4>
@@ -212,7 +227,7 @@
                 <div class="my-6 p-5 rounded-2xl bg-sky-50/60 border border-sky-100 space-y-3">
                   <div class="flex justify-between items-center text-sm md:text-base">
                     <span class="text-slate-600">👥 ความจุผู้โดยสาร:</span>
-                    <span class="font-bold text-slate-900 bg-white px-3 py-1 rounded-lg border border-sky-200 shadow-sm">ไม่เกิน 35 ที่นั่ง</span>
+                    <span class="font-bold text-slate-900 bg-white px-3 py-1 rounded-lg border border-sky-200 shadow-sm">ไม่เกิน 25 ที่นั่ง</span>
                   </div>
                   <div class="flex justify-between items-center text-sm md:text-base">
                     <span class="text-slate-600">⏱️ เวลาประกอบพิธี:</span>
@@ -246,7 +261,6 @@
             </div>
           </div>
 
-          <!-- วันและเวลาทำการ (PDF น.7) -->
           <div class="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="text-center md:text-left">
               <span class="text-xs font-bold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-full inline-block mb-1">
@@ -261,9 +275,7 @@
           </div>
         </section>
 
-        <!-- ========================================================= -->
-        <!-- ส่วนที่ 3: กล่องให้คำปรึกษา & LINE Contact -->
-        <!-- ========================================================= -->
+        <!-- ให้คำปรึกษา & ติดต่อ LINE -->
         <div id="consultSection" class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-3xl p-6 md:p-8 shadow-xl">
           <div class="flex items-center gap-2 mb-4">
             <span class="text-2xl">💬</span>
@@ -293,7 +305,7 @@
               </p>
               
               <div class="pt-1 flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
-                <a id="consultLineBtn" href="https://line.me" target="_blank" rel="noopener noreferrer" 
+                <a id="consultLineBtn" href="https://line.me/ti/p/~0626365924" target="_blank" rel="noopener noreferrer" 
                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm">
                   <span>💬 แชทผ่าน LINE</span>
                   <span>➔</span>
@@ -306,13 +318,11 @@
           </div>
         </div>
 
-        <!-- ========================================================= -->
-        <!-- ส่วนที่ 4: แผนที่และการเดินทาง (PDF น.9) -->
-        <!-- ========================================================= -->
+        <!-- แผนที่และการเดินทาง -->
         <section id="mapSection" class="bg-white/95 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200 space-y-4">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
             <div>
-              <span class="text-xs uppercase font-bold tracking-wider text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+              <span class="text-xs uppercase font-bold tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
                 LOCATION & DIRECTIONS
               </span>
               <h4 class="text-xl md:text-2xl font-bold text-slate-800 mt-1">จุดขึ้นเรือ & ลานจอดรถ</h4>
@@ -366,7 +376,7 @@
         </div>
 
         <!-- Header Banner -->
-        <div class="bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 p-6 text-white text-center relative overflow-hidden">
+        <div class="bg-gradient-to-r from-sky-950 via-slate-900 to-sky-950 p-6 text-white text-center relative overflow-hidden">
           <div class="absolute -right-10 -bottom-10 opacity-15 text-9xl select-none pointer-events-none">🚢</div>
           <div class="relative z-10">
             <span class="inline-block px-3 py-1 bg-sky-500/25 border border-sky-400/30 rounded-full text-xs font-semibold tracking-wider text-sky-200 mb-2 shadow-sm">
@@ -374,7 +384,7 @@
             </span>
             <h2 class="text-xl md:text-2xl font-bold tracking-tight">ระบบจองคิวเรือลอยอังคารออนไลน์</h2>
             <p class="text-sky-200 text-xs md:text-sm mt-1 max-w-lg mx-auto">
-              เรือตรวจการณ์ นสร.5 เจ้าหน้าที่ดูแลพิธีการทางทหารเรือ (เที่ยวละ 30 นาที / จำกัดไม่เกิน 35 ท่าน)
+              เรือตรวจการณ์ นสร.5 เจ้าหน้าที่ดูแลพิธีการทางทหารเรือ (เที่ยวละ 30 นาที / จำกัดไม่เกิน 25 ท่าน)
             </p>
           </div>
         </div>
@@ -406,24 +416,20 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span> สีเขียว = ว่าง (เปิดรับจอง)
               </span>
               <span class="inline-flex items-center gap-1 font-medium text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-slate-300"></span> สีเทา = เต็ม (เจ้าหน้าที่ยืนยันแล้ว)
+                <span class="w-2 h-2 rounded-full bg-slate-300"></span> สีเทา = เต็ม (ยืนยันแล้ว)
               </span>
             </div>
 
-            <!-- กล่องแสดงข้อความเตือนก่อนเลือกวัน -->
             <div id="slotPlaceholder" class="p-8 text-center border-2 border-dashed border-slate-200 rounded-xl bg-slate-50 text-slate-400 text-sm">
               👈 กรุณาเลือกวันที่ด้านบน เพื่อดูรอบเรือว่าง
             </div>
 
-            <!-- แสดงสถานะกำลังโหลด -->
             <div id="slotLoading" class="hidden p-8 text-center border border-slate-200 rounded-xl bg-slate-50">
               <div class="inline-block animate-spin rounded-full h-7 w-7 border-4 border-sky-600 border-t-transparent"></div>
               <p class="text-xs text-slate-500 mt-2 font-medium">กำลังตรวจสอบรอบเรือว่างจากฐานข้อมูล...</p>
             </div>
 
-            <!-- Grid ปุ่มรอบเวลา (17 รอบ) -->
-            <div id="slotsGrid" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
-            </div>
+            <div id="slotsGrid" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5"></div>
             
             <input type="hidden" id="selectedSlot" required>
             <p id="slotErrorText" class="text-xs text-rose-500 mt-1 hidden">⚠️ กรุณาคลิกเลือกรอบเวลาที่ต้องการ</p>
@@ -453,9 +459,9 @@
 
             <div>
               <label class="block text-xs font-medium text-slate-600 mb-1">จำนวนผู้ร่วมพิธีลงเรือ (ท่าน) *</label>
-              <input type="number" id="bookPassengers" min="1" max="35" required placeholder="ระบุจำนวนคน (สูงสุด 35 ท่าน)" 
+              <input type="number" id="bookPassengers" min="1" max="25" required placeholder="ระบุจำนวนคน (สูงสุด 25 ท่าน)" 
                      class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
-              <p class="text-[11px] text-slate-400 mt-1">จำกัดผู้โดยสารไม่เกิน 35 ท่านต่อเที่ยวเรือ เพื่อความปลอดภัยตามระเบียบ</p>
+              <p class="text-[11px] text-slate-400 mt-1">จำกัดผู้โดยสารไม่เกิน 25 ท่านต่อเที่ยวเรือ เพื่อความปลอดภัยตามระเบียบ</p>
             </div>
 
             <div>
@@ -464,23 +470,23 @@
                         class="w-full px-4 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm"></textarea>
             </div>
 
-            <!-- ช่องแนบสลิปหลักฐานการโอนเงินมัดจำ -->
+            <!-- ช่องแนบสลิปพร้อมระบบ Client-side Image Compression -->
             <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 space-y-2">
               <label class="block text-xs font-semibold text-slate-800 flex items-center justify-between">
                 <span>🧾 แนบสลิปหลักฐานการโอนเงินมัดจำ *</span>
-                <span class="text-[11px] text-sky-600 font-normal">รองรับไฟล์ JPG, PNG (ไม่เกิน 4MB)</span>
+                <span class="text-[11px] text-sky-700 font-normal">ระบบจะย่อรูปอัตโนมัติให้ส่งไวขึ้น</span>
               </label>
               
               <input type="file" id="bookSlip" accept="image/*" required onchange="handleSlipUpload(event)"
                      class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-700 file:text-white hover:file:bg-sky-800 file:cursor-pointer cursor-pointer border border-slate-300 bg-white rounded-xl p-1.5 focus:outline-none">
 
-              <!-- กล่องแสดงตัวอย่างสลิปหลังเลือกไฟล์ -->
+              <!-- ตัวอย่างสลิป -->
               <div id="slipPreviewContainer" class="hidden flex items-center gap-3 bg-white p-2.5 rounded-xl border border-slate-200 mt-2">
                 <img id="slipPreviewImg" src="" alt="ตัวอย่างสลิป" class="w-14 h-16 object-cover rounded-lg border border-slate-200 shadow-sm cursor-pointer" onclick="viewLargeSlip(this.src)">
                 <div class="flex-1 min-w-0">
                   <p class="text-xs font-medium text-slate-800 truncate" id="slipFileName"></p>
-                  <p class="text-[10px] text-emerald-600 flex items-center gap-1 mt-0.5">
-                    <span>✓</span> แนบไฟล์พร้อมส่งแล้ว (คลิกรูปเพื่อดูภาพขยาย)
+                  <p class="text-[10px] text-emerald-600 flex items-center gap-1 mt-0.5" id="slipCompressInfo">
+                    <span>✓</span> บีบอัดรูปภาพพร้อมส่งแล้ว
                   </p>
                 </div>
                 <button type="button" onclick="removeSlip()" class="px-2.5 py-1 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition font-medium">
@@ -507,26 +513,31 @@
           <button onclick="navigateTo('home')" class="text-xs font-semibold text-sky-700 hover:text-sky-900 flex items-center gap-1 hover:underline">
             <span>← กลับสู่หน้าหลัก</span>
           </button>
-          <span class="text-xs font-bold text-slate-700">ระบบจัดการคิวเจ้าหน้าที่</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-700">ระบบจัดการคิวเจ้าหน้าที่</span>
+            <button onclick="logoutAdmin()" class="text-xs text-rose-600 hover:text-rose-700 font-semibold px-2 py-1 bg-rose-50 rounded-lg">
+              ออกจากระบบ
+            </button>
+          </div>
         </div>
         
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <!-- Cards สถิติ -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
             <span class="text-xs font-semibold text-slate-400 uppercase">คิวทั้งหมด</span>
-            <div class="text-3xl font-bold text-slate-800 mt-1" id="statTotal">0</div>
+            <div class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1" id="statTotal">0</div>
           </div>
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
             <span class="text-xs font-semibold text-amber-500 uppercase">รออนุมัติ</span>
-            <div class="text-3xl font-bold text-amber-600 mt-1" id="statReview">0</div>
+            <div class="text-2xl sm:text-3xl font-bold text-amber-600 mt-1" id="statReview">0</div>
           </div>
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
             <span class="text-xs font-semibold text-sky-500 uppercase">รอขึ้นเรือ (ล็อกรอบ)</span>
-            <div class="text-3xl font-bold text-sky-600 mt-1" id="statPending">0</div>
+            <div class="text-2xl sm:text-3xl font-bold text-sky-600 mt-1" id="statPending">0</div>
           </div>
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
             <span class="text-xs font-semibold text-emerald-500 uppercase">เสร็จสิ้นแล้ว</span>
-            <div class="text-3xl font-bold text-emerald-600 mt-1" id="statDone">0</div>
+            <div class="text-2xl sm:text-3xl font-bold text-emerald-600 mt-1" id="statDone">0</div>
           </div>
         </div>
 
@@ -535,17 +546,17 @@
           <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto flex-1">
             <div class="relative w-full md:w-72">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">🔍</span>
-              <input type="text" id="searchInput" oninput="applyFilters()" placeholder="ค้นหาชื่อเจ้าภาพ หรือ เบอร์..."
+              <input type="text" id="searchInput" oninput="applyFilters()" placeholder="ค้นหาชื่อเจ้าภาพ หรือ เบอร์..." 
                      class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none">
             </div>
 
             <div class="w-full md:w-48">
-              <input type="date" id="filterDate" onchange="applyFilters()"
+              <input type="date" id="filterDate" onchange="applyFilters()" 
                      class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-slate-700">
             </div>
 
             <div class="w-full md:w-44">
-              <select id="filterStatus" onchange="applyFilters()"
+              <select id="filterStatus" onchange="applyFilters()" 
                       class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-slate-700">
                 <option value="all">สถานะทั้งหมด</option>
                 <option value="รออนุมัติ">รออนุมัติ</option>
@@ -566,7 +577,7 @@
           </div>
         </div>
 
-        <!-- Table Section -->
+        <!-- Table รายการคิว -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
             <h3 class="font-bold text-slate-800 text-sm md:text-base">รายการคิวเรือ (<span id="filteredCount">0</span> รายการ)</h3>
@@ -603,10 +614,39 @@
     </footer>
   </div>
 
-  <!-- Modal สำหรับแอดมินเข้าสู่ระบบ -->
+  <!-- Custom Alert/Notice Modal (แทน alert ปกติ) -->
+  <div id="customAlertModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[99] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center space-y-4">
+      <div id="customAlertIcon" class="text-4xl">⚠️</div>
+      <h4 id="customAlertTitle" class="text-base font-bold text-slate-800">แจ้งเตือน</h4>
+      <p id="customAlertMsg" class="text-xs text-slate-600 leading-relaxed"></p>
+      <button onclick="closeCustomAlert()" class="w-full py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-xs font-semibold transition">
+        รับทราบ
+      </button>
+    </div>
+  </div>
+
+  <!-- Custom Confirmation Modal (แทน confirm ปกติ) -->
+  <div id="customConfirmModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[95] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center space-y-4">
+      <div class="text-4xl">❓</div>
+      <h4 id="customConfirmTitle" class="text-base font-bold text-slate-800">ยืนยันการดำเนินการ</h4>
+      <p id="customConfirmMsg" class="text-xs text-slate-600 leading-relaxed"></p>
+      <div class="flex gap-2">
+        <button id="customConfirmCancelBtn" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition">
+          ยกเลิก
+        </button>
+        <button id="customConfirmOkBtn" class="flex-1 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-xs font-semibold transition shadow">
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal สำหรับแอดมินเข้าสู่ระบบ (Server-side Authenticated) -->
   <div id="adminAuthModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in duration-150">
-      <div class="bg-gradient-to-r from-slate-900 to-sky-900 text-white p-5 text-center">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200">
+      <div class="bg-gradient-to-r from-slate-900 to-sky-950 text-white p-5 text-center">
         <span class="text-3xl block mb-1">🔐</span>
         <h3 class="text-base font-bold">เข้าสู่ระบบแอดมิน / เจ้าหน้าที่</h3>
         <p class="text-xs text-sky-200 mt-1">กรุณากรอกรหัสผ่านเพื่อเข้าจัดการคิวเรือ</p>
@@ -616,25 +656,24 @@
           <label class="block text-xs font-semibold text-slate-700 mb-1">รหัสผ่านเจ้าหน้าที่ (PIN)</label>
           <input type="password" id="adminPasswordInput" required placeholder="ใส่รหัสผ่าน..." 
                  class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 outline-none text-sm text-center tracking-widest font-mono">
-          <p id="adminAuthError" class="text-xs text-rose-500 mt-1 text-center hidden">❌ รหัสผ่านไม่ถูกต้อง</p>
+          <p id="adminAuthError" class="text-xs text-rose-500 mt-1 text-center hidden">❌ รหัสผ่านไม่ถูกต้อง หรือเชื่อมต่อระบบไม่ได้</p>
         </div>
         <div class="flex gap-2">
           <button type="button" onclick="closeAdminAuthModal()" class="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition">
             ยกเลิก
           </button>
-          <button type="submit" class="flex-1 py-2 px-3 bg-amber-500 hover:bg-amber-600 text-slate-900 rounded-xl text-xs font-bold transition shadow">
+          <button type="submit" id="btnAdminSubmit" class="flex-1 py-2 px-3 bg-amber-500 hover:bg-amber-600 text-slate-900 rounded-xl text-xs font-bold transition shadow">
             เข้าสู่ระบบ
           </button>
         </div>
-        <p class="text-[11px] text-slate-400 text-center">รหัสเริ่มต้น: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-600">seal1234</code></p>
       </form>
     </div>
   </div>
 
-  <!-- 3. Modal สรุปรายละเอียดการจอง -->
+  <!-- Modal สรุปรายละเอียดการจองก่อนกดส่ง -->
   <div id="confirmModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
-      <div class="bg-sky-900 text-white p-5 text-center">
+      <div class="bg-sky-950 text-white p-5 text-center">
         <h3 class="text-lg font-bold">📋 สรุปรายละเอียดการจองคิวเรือ</h3>
         <p class="text-xs text-sky-200 mt-1">กรุณาตรวจสอบความถูกต้องก่อนยืนยันข้อมูล</p>
       </div>
@@ -679,11 +718,11 @@
     </div>
   </div>
 
-  <!-- Modal แจ้งเตือนการจองสำเร็จ พร้อมคัดลอกข้อมูลและปุ่มเปิดแชท LINE -->
+  <!-- Modal แจ้งเตือนการจองสำเร็จ พร้อมคัดลอกข้อมูลและปุ่มเปิด LINE -->
   <div id="bookingSuccessModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[70] flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 text-center animate-in fade-in zoom-in duration-200">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 text-center">
       <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6">
-        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl">
+        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl font-bold">
           ✓
         </div>
         <h3 class="text-xl font-bold">บันทึกข้อมูลเรียบร้อยแล้ว!</h3>
@@ -691,7 +730,6 @@
       </div>
 
       <div class="p-6 space-y-4">
-        <!-- กล่องคำแนะนำขั้นตอน 1-2-3 ชัดเจนสำหรับมือถือ -->
         <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-slate-700 text-left space-y-2">
           <p class="font-bold text-emerald-900 text-sm flex items-center gap-1.5">
             <span>📱</span> ขั้นตอนการส่งข้อมูลให้แอดมิน:
@@ -703,7 +741,6 @@
           </ol>
         </div>
 
-        <!-- กล่องแสดงข้อความที่ต้องส่ง -->
         <div class="space-y-1.5 text-left">
           <div class="flex justify-between items-center">
             <label class="text-[11px] font-semibold text-slate-600">ข้อความรายละเอียดการจองของคุณ:</label>
@@ -713,16 +750,15 @@
                     class="w-full text-xs font-mono bg-slate-100 p-3 rounded-xl border border-slate-300 text-slate-800 select-all focus:outline-none"></textarea>
         </div>
 
-        <!-- ปุ่ม Action หลัก: คัดลอกก่อน แล้วเปิดแชท LINE -->
         <div class="pt-1 space-y-2.5">
           <button type="button" onclick="copyBookingTextManual()" 
-                  id="btnManualCopy"
+                  id="btnManualCopy" 
                   class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-md transition flex items-center justify-center gap-2">
             <span>📋 กดที่นี่เพื่อคัดลอกข้อมูลการจอง</span>
           </button>
 
-          <a id="btnGoLine" href="https://line.me" target="_blank" rel="noopener noreferrer"
-             onclick="handleLineOpened()"
+          <a id="btnGoLine" href="https://line.me/ti/p/~0626365924" target="_blank" rel="noopener noreferrer"
+             onclick="handleLineOpened()" 
              class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-green-600 hover:bg-green-700 active:scale-95 text-white shadow-lg transition flex items-center justify-center gap-2">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 5.82 2 10.53c0 2.91 1.76 5.48 4.43 7.03-.2.7-.72 2.53-.82 2.92-.13.48.18.47.37.34.16-.1 2.22-1.52 3.12-2.14.93.26 1.9.4 2.9.4 5.52 0 10-3.82 10-8.53S17.52 2 12 2zm-3.69 11.23h-1.9v-5.4h1.9v5.4zm3.93 0h-1.64l-2.09-2.91v2.91h-1.67v-5.4h1.64l2.09 2.91v-2.91h1.67v5.4zm3.78-3.79h-1.92v1.07h1.92v1.36h-1.92v1.36h2.24v1.36H14.1v-5.4h3.92v1.36zm3.69 3.79h-1.9v-5.4h1.9v5.4z"/>
@@ -738,7 +774,7 @@
     </div>
   </div>
 
-  <!-- Modal ขยายดูภาพสลิปขนาดเต็ม สำหรับแอดมินและผู้ใช้งาน -->
+  <!-- Modal ดูสลิปขนาดเต็ม -->
   <div id="slipModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[60] flex items-center justify-center p-4" onclick="closeSlipModal()">
     <div class="relative max-w-lg w-full bg-slate-900 p-2 rounded-2xl shadow-2xl border border-slate-700" onclick="event.stopPropagation()">
       <button onclick="closeSlipModal()" class="absolute -top-3 -right-3 w-8 h-8 bg-rose-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow hover:bg-rose-700 transition">✕</button>
@@ -750,35 +786,95 @@
   </div>
 
   <script>
+    // URL Web App จาก Google Apps Script
     const API_URL = 'https://script.google.com/macros/s/AKfycby6A28osAzlUWMBM-vi-0XS-hQDAaKmaXETb-hrfixsFdXfcsHLtoe7quX8xnvL95s/exec';
 
-    // ----------------------------------------------------
-    // ตั้งค่า LINE ของทางเรือ / หน่วยซีล
-    // ใส่ลิงก์ LINE OA หรือ Line ID เช่น https://line.me/ti/p/~your_line_id
-    // ----------------------------------------------------
     const LINE_CONFIG = {
       lineUrl: 'https://line.me/ti/p/~0626365924'
     };
 
+    // 17 รอบเวลาบริการ (เที่ยวละ 30 นาที)
+    const MASTER_SLOTS = [
+      '08:00 - 08:30', '08:30 - 09:00', '09:00 - 09:30', '09:30 - 10:00',
+      '10:00 - 10:30', '10:30 - 11:00', '11:00 - 11:30', '11:30 - 12:00',
+      '12:00 - 12:30', '12:30 - 13:00', '13:00 - 13:30', '13:30 - 14:00',
+      '14:00 - 14:30', '14:30 - 15:00', '15:00 - 15:30', '15:30 - 16:00',
+      '16:00 - 16:30'
+    ];
+
+    let currentView = 'home';
+    let allBookingsData = [];
+    let pendingPayload = null;
+    let adminToken = sessionStorage.getItem('seal_admin_token') || '';
+    let uploadedSlipBase64 = '';
+    let bookingSummaryText = '';
+
     document.addEventListener('DOMContentLoaded', () => {
+      // ตั้งค่าวันขั้นต่ำให้เป็นวันนี้ ป้องกันเลือกวันในอดีต
+      const todayISO = getTodayISO();
+      const bookDateInput = document.getElementById('bookDate');
+      if (bookDateInput) bookDateInput.min = todayISO;
+
+      // อัปเดตลิงก์ LINE ในจุดต่างๆ
       const heroLine = document.getElementById('heroLineBtn');
       const consultLine = document.getElementById('consultLineBtn');
       const modalLine = document.getElementById('btnGoLine');
-
       if (heroLine) heroLine.href = LINE_CONFIG.lineUrl;
       if (consultLine) consultLine.href = LINE_CONFIG.lineUrl;
       if (modalLine) modalLine.href = LINE_CONFIG.lineUrl;
     });
 
-    let currentView = 'home';
+    // ==========================================
+    // Custom Dialogs (แทน alert / confirm ดั้งเดิม)
+    // ==========================================
+    function showAlert(message, title = 'แจ้งเตือน', icon = 'ℹ️') {
+      document.getElementById('customAlertTitle').textContent = title;
+      document.getElementById('customAlertMsg').textContent = message;
+      document.getElementById('customAlertIcon').textContent = icon;
+      document.getElementById('customAlertModal').classList.remove('hidden');
+    }
 
+    function closeCustomAlert() {
+      document.getElementById('customAlertModal').classList.add('hidden');
+    }
+
+    function showConfirm(message, title = 'ยืนยันการดำเนินการ') {
+      return new Promise((resolve) => {
+        const modal = document.getElementById('customConfirmModal');
+        document.getElementById('customConfirmTitle').textContent = title;
+        document.getElementById('customConfirmMsg').textContent = message;
+        
+        const okBtn = document.getElementById('customConfirmOkBtn');
+        const cancelBtn = document.getElementById('customConfirmCancelBtn');
+
+        const cleanup = () => {
+          modal.classList.add('hidden');
+          okBtn.onclick = null;
+          cancelBtn.onclick = null;
+        };
+
+        okBtn.onclick = () => {
+          cleanup();
+          resolve(true);
+        };
+        cancelBtn.onclick = () => {
+          cleanup();
+          resolve(false);
+        };
+
+        modal.classList.remove('hidden');
+      });
+    }
+
+    // ==========================================
+    // การนำทางหน้าจอ (Routing)
+    // ==========================================
     function navigateTo(view) {
       currentView = view;
       const vHome = document.getElementById('viewHome');
       const vBooking = document.getElementById('sectionBooking');
       const vDashboard = document.getElementById('sectionDashboard');
 
-      // ซ่อนทุกหน้า
       vHome.classList.add('hidden');
       vBooking.classList.add('hidden');
       vDashboard.classList.add('hidden');
@@ -796,61 +892,118 @@
       }
     }
 
-    // รายการรอบเวลา 17 รอบ (เที่ยวละ 30 นาที)
-    const MASTER_SLOTS = [
-      '08:00 - 08:30',
-      '08:30 - 09:00',
-      '09:00 - 09:30',
-      '09:30 - 10:00',
-      '10:00 - 10:30',
-      '10:30 - 11:00',
-      '11:00 - 11:30',
-      '11:30 - 12:00',
-      '12:00 - 12:30',
-      '12:30 - 13:00',
-      '13:00 - 13:30',
-      '13:30 - 14:00',
-      '14:00 - 14:30',
-      '14:30 - 15:00',
-      '15:00 - 15:30',
-      '15:30 - 16:00',
-      '16:00 - 16:30'
-    ];
-
-    // ป้องกันเลือกวันในอดีต
-    document.getElementById('bookDate').min = new Date().toISOString().split('T')[0];
-
-    const bgImg = document.getElementById('boatBgImage');
-    if (bgImg) {
-      bgImg.onerror = function() {
-        this.src = 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=2000&q=80';
-      };
+    // ==========================================
+    // ปรับปรุงการจัดการวันที่ (Timezone Safe)
+    // ==========================================
+    function getTodayISO() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
 
-    let allBookingsData = [];
-    let pendingPayload = null;
-    let isAdminAuthenticated = false;
-    let uploadedSlipBase64 = '';
-    let bookingSummaryText = '';
+    function parseDateToISO(dateVal) {
+      if (!dateVal) return '';
+      if (typeof dateVal === 'string' && /^\d{4}-\d{2}-\d{2}/.test(dateVal)) {
+        return dateVal.substring(0, 10);
+      }
+      const d = new Date(dateVal);
+      if (isNaN(d.getTime())) return String(dateVal).split('T')[0];
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
 
-    function handleSlipUpload(e) {
+    function formatDisplayDate(dateStr) {
+      if (!dateStr) return '';
+      const iso = parseDateToISO(dateStr);
+      const parts = iso.split('-');
+      if (parts.length < 3) return String(dateStr);
+
+      const thaiMonths = [
+        'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+        'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+      ];
+
+      const year = parseInt(parts[0], 10) + 543;
+      const monthIdx = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+
+      return `${day} ${thaiMonths[monthIdx] || ''} ${year}`;
+    }
+
+    function normalizeTimeSlot(slotStr) {
+      if (!slotStr) return '';
+      return String(slotStr).replace(/\s+/g, '').replace(/น\./g, '').replace(/\./g, ':');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // ==========================================
+    // Client-side Image Compression (HTML5 Canvas)
+    // ==========================================
+    async function compressImage(file, maxWidth = 1200, quality = 0.75) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // บีบอัดเป็น image/jpeg เพื่อให้ได้ขนาดเล็กที่สุด
+            const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+            resolve(compressedBase64);
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleSlipUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
 
-      if (file.size > 4 * 1024 * 1024) {
-        alert('ไฟล์มีขนาดใหญ่เกินไป (กรุณาเลือกรูปขนาดไม่เกิน 4MB)');
+      if (!file.type.startsWith('image/')) {
+        showAlert('กรุณาเลือกไฟล์รูปภาพเท่านั้น (JPG, PNG)', 'ไฟล์ไม่ถูกต้อง', '⚠️');
         e.target.value = '';
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        uploadedSlipBase64 = evt.target.result;
+      try {
+        // ย่อรูปก่อนส่ง
+        uploadedSlipBase64 = await compressImage(file, 1200, 0.75);
         document.getElementById('slipPreviewImg').src = uploadedSlipBase64;
         document.getElementById('slipFileName').textContent = file.name;
         document.getElementById('slipPreviewContainer').classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        showAlert('เกิดข้อผิดพลาดในการประมวลผลรูปภาพ กรุณาลองใหม่อีกครั้ง', 'ข้อผิดพลาด', '❌');
+        removeSlip();
+      }
     }
 
     function removeSlip() {
@@ -869,76 +1022,9 @@
       document.getElementById('slipModal').classList.add('hidden');
     }
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function formatDisplayDate(dateStr) {
-      if (!dateStr) return '';
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return String(dateStr);
-
-      const thaiMonths = [
-        'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
-        'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
-      ];
-
-      const day = d.getDate();
-      const month = thaiMonths[d.getMonth()];
-      const year = d.getFullYear() + 543;
-
-      return `${day} ${month} ${year}`;
-    }
-
-    function parseDateToISO(dateVal) {
-      if (!dateVal) return '';
-      const d = new Date(dateVal);
-      if (isNaN(d.getTime())) return String(dateVal).split('T')[0];
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${y}-${m}-${day}`;
-    }
-
-    function normalizeTimeSlot(slotStr) {
-      if (!slotStr) return '';
-      return String(slotStr).replace(/\s+/g, '').replace(/น\./g, '').replace(/\./g, ':');
-    }
-
-    function promptDashboardAccess() {
-      if (isAdminAuthenticated) {
-        navigateTo('dashboard');
-        return;
-      }
-      document.getElementById('adminPasswordInput').value = '';
-      document.getElementById('adminAuthError').classList.add('hidden');
-      document.getElementById('adminAuthModal').classList.remove('hidden');
-      setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
-    }
-
-    function closeAdminAuthModal() {
-      document.getElementById('adminAuthModal').classList.add('hidden');
-    }
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const pass = document.getElementById('adminPasswordInput').value;
-      if (pass === 'seal1234') {
-        isAdminAuthenticated = true;
-        closeAdminAuthModal();
-        navigateTo('dashboard');
-      } else {
-        document.getElementById('adminAuthError').classList.remove('hidden');
-        document.getElementById('adminPasswordInput').select();
-      }
-    }
-
+    // ==========================================
+    // การจัดการรอบเรือประจำวัน
+    // ==========================================
     async function handleDateChange() {
       const dateVal = document.getElementById('bookDate').value;
       const placeholder = document.getElementById('slotPlaceholder');
@@ -964,21 +1050,15 @@
       loading.classList.remove('hidden');
 
       try {
-        const res = await fetch(`${API_URL}?action=getAllBookings`);
+        const res = await fetch(`${API_URL}?action=getAvailableSlots&date=${dateVal}`);
         const data = await res.json();
         
         loading.classList.add('hidden');
         grid.classList.remove('hidden');
 
-        const bookings = Array.isArray(data.bookings) ? data.bookings : [];
-        
-        const confirmedBookedSlots = bookings
-          .filter(b => {
-            const bDate = parseDateToISO(b.date);
-            const isConfirmed = (b.status === 'รอขึ้นเรือ' || b.status === 'เสร็จสิ้น');
-            return bDate === dateVal && isConfirmed;
-          })
-          .map(b => normalizeTimeSlot(b.timeSlot));
+        const confirmedBookedSlots = Array.isArray(data.bookedSlots)
+          ? data.bookedSlots.map(s => normalizeTimeSlot(s))
+          : [];
 
         renderSlotGrid(confirmedBookedSlots);
 
@@ -1050,12 +1130,15 @@
       selectedCard.className = "cursor-pointer border-2 border-sky-600 bg-sky-50 shadow-md p-3 rounded-xl transition text-center select-none ring-2 ring-sky-300";
     }
 
+    // ==========================================
+    // ขั้นตอนการยืนยันและการบันทึกการจอง
+    // ==========================================
     function openConfirmModal(e) {
       e.preventDefault();
 
       const passengers = parseInt(document.getElementById('bookPassengers').value, 10);
-      if (passengers > 35) {
-        alert('จำนวนผู้ร่วมพิธีเกินกำหนด (รับได้สูงสุดไม่เกิน 35 ท่านต่อเที่ยว)');
+      if (passengers > 25) {
+        showAlert('จำนวนผู้ร่วมพิธีเกินกำหนด (รับได้สูงสุดไม่เกิน 25 ท่านต่อเที่ยวเรือ เพื่อความปลอดภัย)', 'จำนวนเกินกำหนด', '⚠️');
         return;
       }
 
@@ -1067,7 +1150,7 @@
       }
 
       if (!uploadedSlipBase64) {
-        alert('กรุณาแนบภาพสลิปการโอนเงินมัดจำ');
+        showAlert('กรุณาแนบภาพสลิปหลักฐานการโอนเงินมัดจำ', 'ยังไม่ได้แนบสลิป', '🧾');
         document.getElementById('bookSlip').focus();
         return;
       }
@@ -1098,11 +1181,6 @@
       document.getElementById('confirmModal').classList.add('hidden');
     }
 
-    function closeSuccessModal() {
-      document.getElementById('bookingSuccessModal').classList.add('hidden');
-      navigateTo('home');
-    }
-
     function generateSummaryText(payload) {
       return `⚓ [แจ้งจองคิวเรือลอยอังคาร - นสร.5]\n` +
              `📅 วันที่: ${formatDisplayDate(payload.date)}\n` +
@@ -1114,29 +1192,19 @@
              `🧾 (ได้แนบสลิปผ่านทางหน้าเว็บเรียบร้อยแล้วครับ/ค่ะ)`;
     }
 
-    async function copyToClipboard(text) {
+    function copyToClipboard(text) {
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = text;
+      tempTextArea.style.position = 'fixed';
+      tempTextArea.style.left = '-9999px';
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
-      } catch (e) {
-        // Fallback ด้านล่าง
-      }
-
-      try {
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = text;
-        tempTextArea.style.position = 'fixed';
-        tempTextArea.style.left = '-9999px';
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
         document.execCommand('copy');
-        document.body.removeChild(tempTextArea);
-        return true;
       } catch (err) {
-        return false;
+        // Fallback
       }
+      document.body.removeChild(tempTextArea);
     }
 
     function copyBookingTextManual() {
@@ -1144,22 +1212,19 @@
       const badge = document.getElementById('copyStatusBadge');
       const textarea = document.getElementById('copiedTextDisplay');
       
-      // เลือกข้อความใน textarea ให้เห็นชัดเจน
       if (textarea) {
         textarea.focus();
         textarea.select();
         textarea.setSelectionRange(0, 99999);
       }
 
-      const success = copyToClipboard(bookingSummaryText);
+      copyToClipboard(bookingSummaryText);
       
       if (btn) {
         btn.textContent = '✓ คัดลอกสำเร็จแล้ว!';
         btn.className = 'w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-emerald-700 text-white shadow-md transition flex items-center justify-center gap-2';
       }
-      if (badge) {
-        badge.classList.remove('hidden');
-      }
+      if (badge) badge.classList.remove('hidden');
 
       setTimeout(() => {
         if (btn) {
@@ -1170,10 +1235,12 @@
     }
 
     function handleLineOpened() {
-      // เมื่อผู้ใช้กดปุ่มเปิด LINE
-      setTimeout(() => {
-        closeSuccessModal();
-      }, 1500);
+      setTimeout(() => closeSuccessModal(), 1500);
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('bookingSuccessModal').classList.add('hidden');
+      navigateTo('home');
     }
 
     async function submitBookingConfirmed() {
@@ -1187,7 +1254,6 @@
       btnModal.textContent = '⏳ กำลังบันทึกข้อมูล...';
       btnMain.disabled = true;
 
-      // เตรียมข้อความสรุปการจอง และทำการ Auto-copy
       bookingSummaryText = generateSummaryText(pendingPayload);
       copyToClipboard(bookingSummaryText);
 
@@ -1205,7 +1271,6 @@
         btnMain.disabled = false;
 
         if (result.status === 'success') {
-          // รีเซ็ตฟอร์ม
           document.getElementById('bookingForm').reset();
           removeSlip();
           document.getElementById('selectedSlot').value = '';
@@ -1213,14 +1278,13 @@
           document.getElementById('slotPlaceholder').classList.remove('hidden');
           document.getElementById('slotSummaryBadge').classList.add('hidden');
 
-          // ใส่ข้อความในช่องแสดงผล
           document.getElementById('copiedTextDisplay').value = bookingSummaryText;
-          
-          // คัดลอกอีกครั้งเพื่อความชัวร์
           copyToClipboard(bookingSummaryText);
 
-          // แสดง Modal แนะนำให้ลูกค้าเปิดแชท LINE
           document.getElementById('bookingSuccessModal').classList.remove('hidden');
+        } else if (result.status === 'slot_taken') {
+          showAlert('รอบเวลานี้เพิ่งมีผู้ยืนยันการจองไป กรุณาเลือกรอบเวลาใหม่อีกครั้ง', 'รอบเวลาเต็มแล้ว', '⚠️');
+          handleDateChange();
         } else {
           msg.classList.remove('hidden');
           msg.className = 'p-4 rounded-xl text-sm text-center font-medium bg-rose-50 text-rose-700 border border-rose-200';
@@ -1238,13 +1302,83 @@
       }
     }
 
+    // ==========================================
+    // แดชบอร์ดเจ้าหน้าที่ & ความปลอดภัย (Admin Auth)
+    // ==========================================
+    function promptDashboardAccess() {
+      if (adminToken) {
+        navigateTo('dashboard');
+        return;
+      }
+      document.getElementById('adminPasswordInput').value = '';
+      document.getElementById('adminAuthError').classList.add('hidden');
+      document.getElementById('adminAuthModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+    }
+
+    function closeAdminAuthModal() {
+      document.getElementById('adminAuthModal').classList.add('hidden');
+    }
+
+    function logoutAdmin() {
+      adminToken = '';
+      sessionStorage.removeItem('seal_admin_token');
+      navigateTo('home');
+      showAlert('ออกจากระบบเจ้าหน้าที่เรียบร้อยแล้ว', 'สำเร็จ', '👋');
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPasswordInput').value;
+      const btn = document.getElementById('btnAdminSubmit');
+      const errBox = document.getElementById('adminAuthError');
+
+      btn.disabled = true;
+      btn.textContent = 'กำลังตรวจสอบ...';
+      errBox.classList.add('hidden');
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'adminLogin', password: pass })
+        });
+        const result = await res.json();
+
+        btn.disabled = false;
+        btn.textContent = 'เข้าสู่ระบบ';
+
+        if (result.status === 'success' && result.token) {
+          adminToken = result.token;
+          sessionStorage.setItem('seal_admin_token', adminToken);
+          closeAdminAuthModal();
+          navigateTo('dashboard');
+        } else {
+          errBox.classList.remove('hidden');
+          document.getElementById('adminPasswordInput').select();
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'เข้าสู่ระบบ';
+        errBox.textContent = '❌ ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้';
+        errBox.classList.remove('hidden');
+      }
+    }
+
     async function loadDashboardData() {
       const tbody = document.getElementById('bookingTableBody');
       tbody.innerHTML = '<tr><td colspan="7" class="p-6 text-center text-slate-400">กำลังดึงข้อมูลล่าสุด...</td></tr>';
 
       try {
-        const res = await fetch(`${API_URL}?action=getAllBookings`);
+        const res = await fetch(`${API_URL}?action=getAllBookings&token=${encodeURIComponent(adminToken)}`);
         const data = await res.json();
+
+        if (data.status === 'unauthorized') {
+          logoutAdmin();
+          promptDashboardAccess();
+          return;
+        }
+
         allBookingsData = data.bookings || [];
 
         let countReview = 0;
@@ -1331,9 +1465,9 @@
             <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">${escapeHtml(b.status)}</span>
           </td>
           <td class="p-4 text-center space-x-1 whitespace-nowrap">
-            ${b.status === 'รออนุมัติ' ? `<button onclick="changeStatus('${safeRow}', 'รอขึ้นเรือ')" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white text-xs rounded-lg transition font-medium shadow-sm">อนุมัติ (ล็อกรอบ)</button>` : ''}
-            ${b.status === 'รอขึ้นเรือ' ? `<button onclick="changeStatus('${safeRow}', 'เสร็จสิ้น')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs rounded-lg transition font-medium shadow-sm">เสร็จสิ้น</button>` : ''}
-            <button onclick="changeStatus('${safeRow}', 'ยกเลิก')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white text-xs rounded-lg transition font-medium shadow-sm">ยกเลิก</button>
+            ${b.status === 'รออนุมัติ' ? `<button onclick="confirmChangeStatus('${safeRow}', 'รอขึ้นเรือ')" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-white text-xs rounded-lg transition font-medium shadow-sm">อนุมัติ (ล็อกรอบ)</button>` : ''}
+            ${b.status === 'รอขึ้นเรือ' ? `<button onclick="confirmChangeStatus('${safeRow}', 'เสร็จสิ้น')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs rounded-lg transition font-medium shadow-sm">เสร็จสิ้น</button>` : ''}
+            <button onclick="confirmChangeStatus('${safeRow}', 'ยกเลิก')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white text-xs rounded-lg transition font-medium shadow-sm">ยกเลิก</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1347,17 +1481,29 @@
       applyFilters();
     }
 
-    async function changeStatus(row, status) {
-      if (!confirm(`ยืนยันการเปลี่ยนสถานะเป็น "${status}" ใช่หรือไม่?`)) return;
+    async function confirmChangeStatus(row, status) {
+      const ok = await showConfirm(`คุณต้องการเปลี่ยนสถานะรายการนี้เป็น "${status}" ใช่หรือไม่?`, 'ยืนยันเปลี่ยนสถานะ');
+      if (!ok) return;
+
       try {
-        await fetch(API_URL, {
+        const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'updateStatus', row: row, status: status })
+          body: JSON.stringify({
+            action: 'updateStatus',
+            token: adminToken,
+            row: row,
+            status: status
+          })
         });
-        loadDashboardData();
+        const result = await res.json();
+        if (result.status === 'success') {
+          loadDashboardData();
+        } else {
+          showAlert(result.message || 'ไม่สามารถอัปเดตสถานะได้', 'ข้อผิดพลาด', '❌');
+        }
       } catch (err) {
-        alert('อัปเดตสถานะไม่สำเร็จ: ' + err);
+        showAlert('อัปเดตสถานะไม่สำเร็จ: ' + err, 'ข้อผิดพลาด', '❌');
       }
     }
   </script>
